@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>วันครบรอบของเรา 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* พื้นหลังหัวใจ + ดาว */
+    .background .hearts::before,
+    .background .hearts::after {
+      content: "💖";
+      position: absolute;
+      font-size: 40px;
+      animation: float 6s infinite ease-in-out;
+      color: rgba(255,105,180,0.5);
+    }
+    .background .hearts::after {
+      left: 70%;
+      font-size: 60px;
+    }
+
+    .background .stars::before,
+    .background .stars::after {
+      content: "✦";
+      position: absolute;
+      font-size: 25px;
+      color: rgba(255,182,193,0.8);
+      animation: twinkle 3s infinite alternate;
+    }
+    .background .stars::after {
+      left: 40%;
+      font-size: 35px;
+      animation-duration: 4s;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(100vh); opacity: 0; }
+      50%  { opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.3; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* การ์ด */
+    .card {
+      width: 350px;
+      height: 500px;
+      perspective: 1000px;
+      cursor: pointer;
+      position: relative;
+    }
+    .card-front, .card-back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 1s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: pink;
+      padding: 20px;
+      text-align: center;
+    }
+    .card-front { background: #ffc0cb; }
+    .card-back {
+      background: #ffb6c1;
+      transform: rotateY(180deg);
+      overflow-y: auto;
+    }
+    .card.open .card-front { transform: rotateY(180deg); }
+    .card.open .card-back { transform: rotateY(360deg); }
+
+    /* ตัวหนังสือหน้าปก (Gradient) */
+    .card-front h1 {
+      background: linear-gradient(45deg, #ff4da6, #ff66cc, #cc33ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 22px;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
+    }
+    .card-front p {
+      color: #b30059;
+    }
+
+    /* ไอคอนลอยบนหน้าปก */
+    .floating-icons {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      pointer-events: none;
+    }
+    .floating-icons span {
+      display: inline-block;
+      margin: 0 10px;
+      font-size: 24px;
+      animation: floatAround 6s infinite linear;
+    }
+    .floating-icons .heart { color: hotpink; }
+    .floating-icons .star { color: deeppink; }
+
+    @keyframes floatAround {
+      0%   { transform: translateY(0) rotate(0deg);   opacity: 1; }
+      50%  { transform: translateY(-15px) rotate(180deg); opacity: 0.7; }
+      100% { transform: translateY(0) rotate(360deg); opacity: 1; }
+    }
+
+    /* วิดีโอ / รูป */
+    .lover-photo, .lover-video {
+      width: 250px;
+      border-radius: 15px;
+      margin: 15px 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center; align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      width: 80%;
+      max-width: 400px;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      margin: 10px 0;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="hearts"></div>
+    <div class="stars"></div>
+  </div>
+
+  <!-- การ์ด -->
+  <div class="card">
+    <div class="card-front">
+      <!-- หัวใจ + ดาวลอยบนปก -->
+      <div class="floating-icons">
+        <span class="heart">💖</span>
+        <span class="star">✦</span>
+        <span class="heart">💕</span>
+        <span class="star">✦</span>
+      </div>
+
+      <h1>สุขสันต์วันครบรอบนะที่รัก 💕</h1>
+      <p>กดเพื่อเปิดการ์ดจ้า</p>
+    </div>
+    <div class="card-back">
+      <h2>สวัสดีตะวันน💖</h2>
+
+      <!-- วิดีโอ -->
+      <video class="lover-video" controls>
+  <source src="clip.MP4" type="video/mp4">
+</video>
+
+      <!-- ข้อความรัก -->
+      <p>
+         💕<br><br>
+        สุขสันต์วันครบรอบนะ ขอบคุณที่อยู่กันมาจนถึงทุกวันนี้<br>
+        ก็ขอโทษที่บางครั้งทำตัวไม่น่ารัก<br>
+        ขอให้เป็นคนสุดท้ายของกันและกัน<br>
+        แล้วก็ใช้ชีวิตแบบนี้ไปเรื่อยๆเลย ปรับนิสัยให้ดีขึ่น<br>
+        อยากให้ อยู่ด้วยความสำเร็จของทุกการเติบโตของเค้าเลย<br><br>
+        รักตะวันนะ 💖<br>
+        จาก เฟรม 💕
+      </p>
+
+      <button id="askBtn">ถามคำถาม</button>
+    </div>
+  </div>
+
+  <!-- Modal คำถาม -->
+  <div id="questionModal" class="modal">
+    <div class="modal-content">
+      <h3>เธอรักเขาไหม? 💘</h3>
+      <button onclick="answerLove(true)">รัก</button>
+      <button onclick="answerLove(false)">ไม่รัก</button>
+      <div id="answerBox" style="margin-top:15px; display:none;">
+        <textarea id="loveMessage" placeholder="พิมพ์ข้อความรักได้เลย (สูงสุด 300 คำ)" maxlength="1500"></textarea>
+        <button onclick="submitMessage()">ส่งข้อความ</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // เปิดการ์ด
+    document.querySelector(".card").addEventListener("click", function() {
+      this.classList.toggle("open");
+    });
+
+    // Modal
+    let modal = document.getElementById("questionModal");
+    document.getElementById("askBtn").onclick = function() {
+      modal.style.display = "flex";
+    };
+
+    function answerLove(isLove) {
+      if (isLove) {
+        document.getElementById("answerBox").style.display = "block";
+      } else {
+        alert("แย่จัง 😢 แต่เราก็ยังรักเธออยู่นะ");
+        modal.style.display = "none";
+      }
+    }
+
+    function submitMessage() {
+      let text = document.getElementById("loveMessage").value;
+      if (text.trim().length === 0) {
+        alert("กรุณาใส่ข้อความนะคะ 💌");
+      } else {
+        alert("ขอบคุณที่ตอบว่า 'รัก' ❤️ ข้อความของเธอถูกส่งแล้ว!");
+        modal.style.display = "none";
+      }
+    }
+
+    // ปิด modal เมื่อกดนอกกล่อง
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>
